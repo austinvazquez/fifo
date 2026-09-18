@@ -371,9 +371,6 @@ func TestFifoCloseError(t *testing.T) {
 }
 
 func TestFifoCloseWhileReading(t *testing.T) {
-	if runtime.GOOS == "darwin" {
-		t.Skip("Interruptable reads not supported on Darwin")
-	}
 	tmpdir, err := os.MkdirTemp("", "fifos")
 	assert.NoError(t, err)
 	defer os.RemoveAll(tmpdir)
@@ -412,6 +409,9 @@ func TestFifoCloseWhileReading(t *testing.T) {
 }
 
 func TestFifoCloseWhileReadingAndWriting(t *testing.T) {
+	if runtime.GOOS == "darwin" {
+		t.Skip("Interruptable reads not supported on Darwin")
+	}
 	tmpdir, err := os.MkdirTemp("", "fifos")
 	assert.NoError(t, err)
 	defer os.RemoveAll(tmpdir)
